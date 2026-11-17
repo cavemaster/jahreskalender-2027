@@ -1,0 +1,9 @@
+# Credentials & Server-Zugangsdaten (Niemals öffentlich einchecken!)
+.ftp_config.json
+*.secret
+*.key
+*.pem
+
+# OS-Dateien
+.DS_Store
+Thumbs.db

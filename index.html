@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Jahreskalender 2027 // CHRONOS Futuristic Matrix</title>
+
+  <!-- PWA & Mobile Meta Tags -->
+  <meta name="description" content="Futuristischer Jahreskalender 2027 mit interaktiver Temporal-Matrix, Feiertagen, Kalenderwochen und Cyber-HUD.">
+  <meta name="theme-color" content="#00f3ff">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Futuristic Sci-Fi Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800;900&family=Rajdhani:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css?v=1.0">
+</head>
+<body>
+
+  <!-- Dynamic Cyber Canvas (Grid & Star Particles) -->
+  <canvas id="cyberCanvas" aria-hidden="true"></canvas>
+
+  <!-- Scanline Screen Effect Overlay -->
+  <div class="scanlines-overlay" aria-hidden="true"></div>
+
+  <div class="cyber-container">
+
+    <!-- TOP CYBER HUD BAR -->
+    <header class="cyber-hud-header">
+      <div class="hud-top-telemetry">
+        <div class="telemetry-node">
+          <span class="pulse-indicator"></span>
+          <span class="telemetry-label">SYS.STATUS:</span>
+          <span class="telemetry-value active-val">CHRONOS_ONLINE</span>
+        </div>
+        <div class="telemetry-node hide-mobile">
+          <span class="telemetry-label">TEMPORAL_CORE:</span>
+          <span class="telemetry-value">EPOCH_2027.COMMON</span>
+        </div>
+        <div class="telemetry-clock">
+          <span class="clock-label">TIME_CODE:</span>
+          <span id="hudLiveClock" class="clock-val">00:00:00</span>
+          <span class="clock-tz">CET</span>
+        </div>
+      </div>
+
+      <!-- MAIN SCI-FI TITLE -->
+      <div class="cyber-title-wrapper">
+        <div class="hud-corner-bracket corner-tl"></div>
+        <div class="hud-corner-bracket corner-tr"></div>
+        <div class="hud-corner-bracket corner-bl"></div>
+        <div class="hud-corner-bracket corner-br"></div>
+
+        <div class="title-meta-tag">CYBERNETIC TEMPORAL MATRIX // 365 DAYS</div>
+        <h1 class="glitch-title" data-text="KALENDER 2027">
+          <span class="title-accent">JAHRESKALENDER</span> 2027
+        </h1>
+        <p class="title-subtext">Vollständige Jahresübersicht mit Feiertagen, Kalenderwochen &amp; interaktivem Inspector</p>
+      </div>
+
+      <!-- TELEMETRY STATS BAR -->
+      <div class="hud-stats-grid">
+        <div class="hud-stat-card">
+          <span class="stat-num" id="statDaysTotal">365</span>
+          <span class="stat-desc">Tage Gesamt</span>
+        </div>
+        <div class="hud-stat-card">
+          <span class="stat-num" id="statWeeksTotal">52</span>
+          <span class="stat-desc">Kalenderwochen</span>
+        </div>
+        <div class="hud-stat-card">
+          <span class="stat-num neon-magenta" id="statHolidaysTotal">11</span>
+          <span class="stat-desc">Feiertage (RLP)</span>
+        </div>
+        <div class="hud-stat-card">
+          <span class="stat-num neon-green" id="statWeekendsTotal">104</span>
+          <span class="stat-desc">Wochenendtage</span>
+        </div>
+      </div>
+
+      <!-- CONTROLS & FILTER HUD -->
+      <nav class="hud-controls-panel" aria-label="Kalender-Navigation">
+        <!-- Quarter Tabs -->
+        <div class="quarter-tabs-group" role="tablist">
+          <button class="quarter-tab-btn active" data-quarter="all">GESAMTJAHR</button>
+          <button class="quarter-tab-btn" data-quarter="1">Q1 (JAN–MÄR)</button>
+          <button class="quarter-tab-btn" data-quarter="2">Q2 (APR–JUN)</button>
+          <button class="quarter-tab-btn" data-quarter="3">Q3 (JUL–SEP)</button>
+          <button class="quarter-tab-btn" data-quarter="4">Q4 (OKT–DEZ)</button>
+        </div>
+
+        <!-- Filter & Action Pills -->
+        <div class="filter-actions-group">
+          <button id="btnFilterHolidays" class="hud-pill-btn active-pill" title="Feiertage hervorheben">
+            <span class="pill-dot magenta-dot"></span> Feiertage
+          </button>
+          <button id="btnFilterBridges" class="hud-pill-btn" title="Brückentage für Urlaub anzeigen">
+            <span class="pill-dot yellow-dot"></span> Brückentage
+          </button>
+          <button id="btnFilterNotes" class="hud-pill-btn" title="Nur Tage mit eigenen Notizen filtern">
+            <span class="pill-dot green-dot"></span> Eigene Notizen
+          </button>
+          <button id="btnExportIcs" class="hud-pill-btn cyber-action-btn" title="Alle 2027 Feiertage in Kalender exportieren">
+            <span class="btn-icon">⚡</span> Alle Feiertage (.ics)
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- 12-MONTH CYBER MATRIX GRID -->
+    <main class="cyber-matrix-grid" id="monthsGrid" aria-label="Jahreskalender 2027">
+      <!-- 12 Month Cards dynamically injected via app.js -->
+    </main>
+
+    <!-- HOLIDAYS & LEGEND FOOTER DOCK -->
+    <footer class="cyber-footer-dock">
+      <div class="footer-legend-strip">
+        <div class="legend-chip">
+          <span class="chip-color chip-holiday"></span> Gesetzlicher Feiertag
+        </div>
+        <div class="legend-chip">
+          <span class="chip-color chip-bridge"></span> Empfohlener Brückentag
+        </div>
+        <div class="legend-chip">
+          <span class="chip-color chip-weekend"></span> Samstag / Sonntag
+        </div>
+        <div class="legend-chip">
+          <span class="chip-color chip-note"></span> Eigene Notiz vorhanden
+        </div>
+      </div>
+
+      <div class="dock-meta-info">
+        <span>CHRONOS // 2027 TEMPORAL INTERFACE</span>
+        <span class="divider">✦</span>
+        <span>Host: juliejung.de/kalender/</span>
+        <span class="divider">✦</span>
+        <a href="../Lebendiger-Adventskalender-Bretzenheim/" class="hud-link">Zum Adventskalender ↗</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- INTERACTIVE DAY INSPECTOR MODAL -->
+  <div id="dayModal" class="cyber-modal-backdrop" aria-hidden="true" style="display: none;">
+    <div class="cyber-modal-card" role="dialog" aria-labelledby="modalDateTitle" aria-modal="true">
+      <div class="modal-corner-accent corner-tl"></div>
+      <div class="modal-corner-accent corner-tr"></div>
+      <div class="modal-corner-accent corner-bl"></div>
+      <div class="modal-corner-accent corner-br"></div>
+
+      <div class="cyber-modal-header">
+        <div class="modal-title-group">
+          <span class="modal-sys-tag">NODE.INSPECTOR //</span>
+          <h3 id="modalDateTitle" class="modal-date-heading">01. JANUAR 2027</h3>
+        </div>
+        <button id="closeModalBtn" class="cyber-close-btn" aria-label="Schließen">&times;</button>
+      </div>
+
+      <div class="cyber-modal-body">
+        <!-- Telemetry readout for selected day -->
+        <div class="modal-telemetry-row">
+          <div class="modal-telemetry-item">
+            <span class="t-label">WOCHENTAG</span>
+            <span id="modalWeekday" class="t-val">Freitag</span>
+          </div>
+          <div class="modal-telemetry-item">
+            <span class="t-label">KALENDERWOCHE</span>
+            <span id="modalKw" class="t-val neon-cyan">KW 53 / 01</span>
+          </div>
+          <div class="modal-telemetry-item">
+            <span class="t-label">JAHRESTAG</span>
+            <span id="modalDayOfYear" class="t-val">Tag 1 von 365</span>
+          </div>
+          <div class="modal-telemetry-item">
+            <span class="t-label">QUARTAL</span>
+            <span id="modalQuarter" class="t-val">Q1</span>
+          </div>
+        </div>
+
+        <!-- Special Event / Holiday Banner -->
+        <div id="modalHolidayBanner" class="modal-holiday-banner" style="display: none;">
+          <span class="banner-icon">⚡</span>
+          <div>
+            <div id="modalHolidayName" class="holiday-name">Neujahr</div>
+            <div class="holiday-sub">Gesetzlicher Feiertag in Deutschland &amp; Rheinland-Pfalz</div>
+          </div>
+        </div>
+
+        <!-- Bridge Day recommendation if applicable -->
+        <div id="modalBridgeBanner" class="modal-bridge-banner" style="display: none;">
+          <span class="banner-icon">🌉</span>
+          <div>
+            <div class="bridge-name">Brückentag-Empfehlung</div>
+            <div id="modalBridgeDesc" class="bridge-sub">1 Urlaubstag nehmen = 4 freie Tage am Stück!</div>
+          </div>
+        </div>
+
+        <!-- Personal Cyber-Note Storage -->
+        <div class="modal-note-section">
+          <label for="modalNoteInput" class="note-label">
+            <span>EIGENE NOTIZ &amp; TERMINMARKER</span>
+            <span class="note-storage-tag">LOKAL GESPEICHERT</span>
+          </label>
+          <textarea id="modalNoteInput" class="cyber-textarea" rows="3" placeholder="Notiz oder Erinnerung für diesen Tag eintragen..."></textarea>
+          <div class="note-btn-bar">
+            <button id="btnSaveNote" class="btn-cyber-primary">
+              <span>💾 Notiz speichern</span>
+            </button>
+            <button id="btnDeleteNote" class="btn-cyber-danger" style="display: none;">
+              <span>✕ Notiz löschen</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="modal-action-bar">
+          <button id="btnExportSingleIcs" class="btn-cyber-secondary">
+            <span>📅 Diesen Tag als .ics exportieren</span> ↗
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js?v=1.0"></script>
+</body>
+</html>

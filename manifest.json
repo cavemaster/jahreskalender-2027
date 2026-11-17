@@ -1,0 +1,9 @@
+{
+  "name": "CHRONOS 2027 // Futuristic Calendar",
+  "short_name": "Kalender 2027",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#060913",
+  "theme_color": "#00f3ff",
+  "description": "Futuristischer Jahreskalender 2027 mit interaktiver Matrix, Feiertagen und Cyber-HUD."
+}
